@@ -1,0 +1,28 @@
+service: aws-node-pingpong-api
+frameworkVersion: '3'
+useDotenv: true
+
+package:
+  patterns:
+    - '!terraform/**'
+    - '!.git/**'
+    - '!.env'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  environment:
+    POSTGRES_HOST: ${env:POSTGRES_HOST}
+    POSTGRES_DB: ${env:POSTGRES_DB}
+    POSTGRES_USER: ${env:POSTGRES_USER}
+    POSTGRES_PASSWORD: ${env:POSTGRES_PASSWORD}
+    JWT_SECRET: ${env:JWT_SECRET}
+
+functions:
+  api:
+    handler: handler.handler
+    events:
+      - httpApi: '*'
+
+plugins:
+  - serverless-offline

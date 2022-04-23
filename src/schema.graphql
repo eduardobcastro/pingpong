@@ -1,0 +1,46 @@
+type User {
+  id: String
+  name: String
+  email: String
+  password: String
+  active: Boolean
+  createdAt: String
+  updatedAt: String
+}
+
+type Player {
+  id: String
+  games: [Game]
+  wins: Int
+  losses: Int
+  user: User
+  createdAt: String
+  updatedAt: String
+}
+
+type Game {
+  id: String
+  players: [Player]
+  winner: Player
+  scores: [Int]
+  createdAt: String
+  updatedAt: String
+}
+
+type Query {
+  player(id: String): Player
+  players: [Player]
+  game(id: String): Game
+  games: [Game]
+}
+
+type Mutation {
+  login(email: String, password: String): LoginResponse
+  createUser(name: String, email: String, password: String): User
+  createGame(players: [String], scores: [Int]): Game
+}
+
+type LoginResponse {
+  token: String
+  user: User
+}
